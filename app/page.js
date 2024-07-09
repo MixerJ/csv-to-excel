@@ -1,113 +1,174 @@
-import Image from "next/image";
+'use client';
+import { useState } from 'react';
+import { AlertCircle } from "lucide-react"
+import { ExclamationTriangleIcon } from "@radix-ui/react-icons"
+import Head from 'next/head';
+import * as XLSX from 'xlsx';
+// import { saveAs } from 'file-saver';
+import 'react-circular-progressbar/dist/styles.css';
+import ProgressBar from 'react-progressbar';
+import { Circles } from 'react-loader-spinner';
+import { Card, CardFooter, CardHeader, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import {
+  Alert, AlertDescription,
+  AlertTitle,
+} from "@/components/ui/alert";
+
 
 export default function Home() {
+  const [files, setFiles] = useState([]);
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const [convertedFiles, setConvertedFiles] = useState([]);
+  const [successMessage, setSuccessMessage] = useState('');
+
+  const handleFileChange = (e) => {
+    const selectedFiles = Array.from(e.target.files);
+    const invalidFiles = selectedFiles.filter(file => file.type !== 'text/csv');
+
+    if (invalidFiles.length > 0) {
+      console.log("Please upload only CSV files.!!!!!")
+      setError('Please upload only CSV files.');
+      setFiles([]);
+      return;
+    }
+
+    setFiles(selectedFiles);
+    setError('');
+    setSuccessMessage('');
+  };
+
+  const handleConvert = () => {
+    if (files.length === 0) {
+      setError('Please upload CSV files first.');
+      return;
+    }
+
+    setError('');
+    setLoading(true);
+    setProgress(0);
+    setConvertedFiles([]);
+    setSuccessMessage('');
+
+    files.forEach((file, index) => {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        try {
+          const data = e.target.result;
+          const workbook = XLSX.read(data, { type: 'binary' });
+          const worksheet = workbook.Sheets[workbook.SheetNames[0]];
+          const excelData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+
+          const newWorkbook = XLSX.utils.book_new();
+          const newWorksheet = XLSX.utils.aoa_to_sheet(excelData);
+          XLSX.utils.book_append_sheet(newWorkbook, newWorksheet, 'Sheet1');
+
+          const excelBuffer = XLSX.write(newWorkbook, { bookType: 'xlsx', type: 'array' });
+          const blob = new Blob([excelBuffer], { type: 'application/octet-stream' });
+
+          setConvertedFiles((prev) => [...prev, { name: `${file.name.split('.csv')[0]}.xlsx`, blob }]);
+
+          // Update progress
+          setProgress(((index + 1) / files.length) * 100);
+
+          // If all files are processed, stop loading
+          if (index === files.length - 1) {
+            setLoading(false);
+            setSuccessMessage('All files have been successfully converted!');
+          }
+        } catch (error) {
+          setError(`Error processing file: ${file.name}`);
+          setLoading(false);
+        }
+      };
+      reader.readAsBinaryString(file);
+    });
+  };
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">app/page.js</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-r from-blue-500 to-indigo-600 p-4">
+      <Head>
+        <title>CSV to Excel Converter</title>
+        <meta name="description" content="Convert your CSV files to Excel format easily and quickly." />
+        <meta name="keywords" content="CSV, Excel, Converter, Batch Conversion" />
+        <meta name="author" content="Your Name" />
+      </Head>
+      <Card className="w-full max-w-md shadow-lg">
+        <CardHeader className="text-center">
+          <h1 className="text-3xl font-bold text-black">Batch CSV to Excel Converter</h1>
+        </CardHeader>
+        <CardContent>
+          {error && <Alert variant="destructive" className="mb-4">
+            <ExclamationTriangleIcon className="h-4 w-4" />
+            <AlertTitle>Error</AlertTitle>
+            <AlertDescription className="mb-4 font-bold text-red">
+              {error}
+            </AlertDescription>
+          </Alert>}
+          {/* {error && <Alert type="error" message={error} className="mb-4 font-bold text-red" />} */}
+
+          {/* {successMessage && <Alert type="success" message={successMessage} className="mb-4 font-bold text-black" />} */}
+          {successMessage && <Alert className="mb-4">
+            <AlertCircle className="h-4 w-4" />
+            <AlertTitle>Success</AlertTitle>
+            <AlertDescription className="mb-4 font-bold text-black">
+              {successMessage}
+            </AlertDescription>
+          </Alert>}
+          <Input
+            type="file"
+            accept=".csv"
+            multiple
+            onChange={handleFileChange}
+            className="mb-4 p-2 border border-gray-300 rounded w-full"
+          />
+          {loading && (
+            <div className="flex flex-col items-center">
+              <Circles color="#00BFFF" height={80} width={80} className="mb-4" />
+              <ProgressBar
+                completed={progress}
+                className="w-full"
+                bgcolor="#4CAF50"
+                basebgcolor="#e0e0de"
+                height="10px"
+                labelalignment="center"
+                labelcolor="#ffffff"
+                labelsize="14px"
+              />
+            </div>
+          )}
+          {convertedFiles.length > 0 && (
+            <div className="mt-4">
+              <h2 className="text-xl font-bold text-black mb-2">Download Converted Files:</h2>
+              <ul className="list-disc list-inside">
+                {convertedFiles.map((file, index) => (
+                  <li key={index} className="text-black">
+                    <a
+                      href={URL.createObjectURL(file.blob)}
+                      download={file.name}
+                      className="text-blue-200 hover:text-blue-400"
+                    >
+                      {file.name}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </CardContent>
+        <CardFooter className="text-center">
+          <Button
+            onClick={handleConvert}
+            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 w-full mb-4"
+            disabled={loading}
           >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-full sm:before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full sm:after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800 hover:dark:bg-opacity-30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore starter templates for Next.js.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50 text-balance`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+            {loading ? 'Converting...' : 'Convert to Excel'}
+          </Button>
+        </CardFooter>
+      </Card>
+    </div>
   );
 }
