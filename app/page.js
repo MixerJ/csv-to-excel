@@ -91,10 +91,10 @@ export default function Home() {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-r from-blue-500 to-indigo-600 p-4">
       <Head>
-        <title>CSV to Excel Converter</title>
-        <meta name="description" content="Convert your CSV files to Excel format easily and quickly." />
-        <meta name="keywords" content="CSV, Excel, Converter, Batch Conversion" />
-        <meta name="author" content="Your Name" />
+        <title>CSV to Excel Converter Free</title>
+        <meta name="description" content="Free Convert your CSV files to Excel format easily and quickly." />
+        <meta name="keywords" content="CSV, Excel, Converter, Batch Conversion, Free" />
+        <meta name="author" content="Jack Zhu" />
       </Head>
       <Card className="w-full max-w-md shadow-lg">
         <CardHeader className="text-center">
