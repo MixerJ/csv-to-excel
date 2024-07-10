@@ -93,7 +93,7 @@ export default function Home() {
       <Head>
         <title>CSV to Excel Converter Free</title>
         <meta name="description" content="Free Convert your CSV files to Excel format easily and quickly." />
-        <meta name="keywords" content="CSV, Excel, Converter, Batch Conversion, Free" />
+        <meta name="keywords" content="CSV, Excel, Converter, Batch Conversion, Free, csv to excel, convert csv to excel" />
         <meta name="author" content="Jack Zhu" />
       </Head>
       <Card className="w-full max-w-md shadow-lg">
