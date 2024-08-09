@@ -1,7 +1,9 @@
+'use client';
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/react"
 import { SpeedInsights } from "@vercel/speed-insights/next"
+import Head from 'next/head';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -13,6 +15,12 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <Head>
+        <title>CSV to Excel Converter Free</title>
+        <meta name="description" content="Free Convert your CSV files to Excel format easily and quickly." />
+        <meta name="keywords" content="CSV, Excel, Converter, Batch Conversion, Free, csv to excel, convert csv to excel" />
+        <meta name="author" content="Jack Zhu" />
+      </Head>
       <body className={inter.className}>
         {children}
         <Analytics />
