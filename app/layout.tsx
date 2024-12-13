@@ -28,7 +28,7 @@ export default function RootLayout({ children }: Readonly<{
       <body className={inter.className}>
         <Navigation />
         <FileUpload />
-        {children}
+        {/* {children} */}
         <Analytics />
         <SpeedInsights />
       </body>

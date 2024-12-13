@@ -15,6 +15,7 @@ import {
     Alert, AlertDescription,
     AlertTitle,
 } from "@/components/ui/alert";
+import { useTranslation } from 'next-i18next';
 
 
 export default function FileUpload() {
@@ -25,14 +26,16 @@ export default function FileUpload() {
     const [convertedFiles, setConvertedFiles] = useState([]);
     const [successMessage, setSuccessMessage] = useState('');
 
+    const { t } = useTranslation('common');
+
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const selectedFiles = Array.from(e.target.files || []);
 
         const invalidFiles = selectedFiles.filter(file => file.type !== 'text/csv');
 
         if (invalidFiles.length > 0) {
-            console.log("Please upload only CSV files.!!!!!")
-            setError('Please upload only CSV files.');
+            console.log(t('uploadOnlyCSV'));
+            setError(t('uploadOnlyCSV'));
             setFiles([]);
             return;
         }
@@ -44,7 +47,7 @@ export default function FileUpload() {
 
     const handleConvert = () => {
         if (files.length === 0) {
-            setError('Please upload CSV files first.');
+            setError(t('uploadCSVFirst'));
             return;
         }
 
@@ -78,7 +81,7 @@ export default function FileUpload() {
                     // If all files are processed, stop loading
                     if (index === files.length - 1) {
                         setLoading(false);
-                        setSuccessMessage('All files have been successfully converted!');
+                        setSuccessMessage(t('allFilesConverted'));
                     }
                 } catch (error) {
                     setError(`Error processing file: ${file.name}`);
@@ -92,20 +95,14 @@ export default function FileUpload() {
     return (
         <>
             <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-r from-blue-500 to-indigo-600 p-4">
-                <Head>
-                    <title>CSV to Excel Converter Free</title>
-                    <meta name="description" content="Free Convert your CSV files to Excel format easily and quickly." />
-                    <meta name="keywords" content="CSV, Excel, Converter, Batch Conversion, Free, csv to excel, convert csv to excel" />
-                    <meta name="author" content="Jack Zhu" />
-                </Head>
                 <Card className="w-full max-w-md shadow-lg">
                     <CardHeader className="text-center">
-                        <h1 className="text-3xl font-bold text-black">Batch CSV to Excel Converter</h1>
+                        <h1 className="text-3xl font-bold text-black">{t('batchCSVToExcel')}</h1>
                     </CardHeader>
                     <CardContent>
                         {error && <Alert variant="destructive" className="mb-4">
                             <ExclamationTriangleIcon className="h-4 w-4" />
-                            <AlertTitle>Error</AlertTitle>
+                            <AlertTitle>{t('error')}</AlertTitle>
                             <AlertDescription className="mb-4 font-bold text-red">
                                 {error}
                             </AlertDescription>
@@ -115,7 +112,7 @@ export default function FileUpload() {
                         {/* {successMessage && <Alert type="success" message={successMessage} className="mb-4 font-bold text-black" />} */}
                         {successMessage && <Alert className="mb-4">
                             <AlertCircle className="h-4 w-4" />
-                            <AlertTitle>Success</AlertTitle>
+                            <AlertTitle>{t('success')}</AlertTitle>
                             <AlertDescription className="mb-4 font-bold text-black">
                                 {successMessage}
                             </AlertDescription>
@@ -144,7 +141,7 @@ export default function FileUpload() {
                         )}
                         {convertedFiles.length > 0 && (
                             <div className="mt-4">
-                                <h2 className="text-xl font-bold text-black mb-2">Download Converted Files:</h2>
+                                <h2 className="text-xl font-bold text-black mb-2">{t('downloadConvertedFiles')}</h2>
                                 <ul className="list-disc list-inside">
                                     {convertedFiles.map((file, index) => (
                                         <li key={index} className="text-black">
@@ -167,7 +164,7 @@ export default function FileUpload() {
                             className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 w-full mb-4"
                             disabled={loading}
                         >
-                            {loading ? 'Converting...' : 'Convert to Excel'}
+                            {loading ? t('converting') : t('convertToExcel')}
                         </Button>
                     </CardFooter>
                 </Card>
