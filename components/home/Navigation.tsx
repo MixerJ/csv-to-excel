@@ -23,7 +23,7 @@ export default function Navigation() {
     return (
         <>
             <header className="fixed top-0 left-0 right-0 flex h-16 items-center justify-between gap-4 border-b bg-secondary px-4 md:px-6 z-50">
-                <Link href="#" className="flex items-center gap-2 text-secondary-foreground text-lg font-semibold md:text-base">
+                <Link href="#" className="flex items-center gap-2 text-secondary-foreground text-lg font-semibold md:text-base hidden md:flex">
                     <Home className="h-6 w-6 text-secondary-foreground" />
                     <span className="sr-only">{t('home')}</span>
                 </Link>
@@ -63,7 +63,7 @@ export default function Navigation() {
             <aside className={`fixed top-0 left-0 h-full bg-white shadow-lg z-20 transform ${isOpen ? 'translate-x-0' : '-translate-x-full'} transition-transform duration-300 ease-in-out`}>
                 <nav className="flex flex-col gap-6 p-4">
                     <Link href="#" className="text-foreground transition-colors hover:text-foreground">
-                        {t('blog')}
+                        {t('home')}
                     </Link>
                     <Link href="#" className="text-muted-foreground transition-colors hover:text-foreground">
                         {t('faq')}
