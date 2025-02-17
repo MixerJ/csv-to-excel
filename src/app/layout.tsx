@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   title: "CSV to Excel Converter",
   description: "Convert your CSV files to Excel format with style",
   keywords: ["CSV", "Excel", "converter", "batch", "file conversion"],
-  authors: [{ name: "Your Name" }],
+  authors: [{ name: "Sueeiii" }],
   openGraph: {
     title: "CSV to Excel Converter",
     description: "Convert your CSV files to Excel format with style",
@@ -23,8 +23,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
+    <html lang="en" className="bg-gray-50">
+      <body className={`${inter.className} text-gray-900 bg-gray-50`}>
         <Navbar />
         {children}
       </body>

@@ -2,39 +2,40 @@
 
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
+import '../lib/i18n';
 
 export default function AboutPage() {
   const { t } = useTranslation();
 
   const features = [
     {
-      name: '批量转换',
-      description: '支持多个 CSV 文件同时转换为 Excel 格式',
+      name: t('about.features.batch.title'),
+      description: t('about.features.batch.description'),
       icon: '🚀',
     },
     {
-      name: '美观设计',
-      description: '精心设计的用户界面，提供流畅的用户体验',
+      name: t('about.features.design.title'),
+      description: t('about.features.design.description'),
       icon: '🎨',
     },
     {
-      name: '多语言支持',
-      description: '支持中文和英文界面，轻松切换语言',
+      name: t('about.features.i18n.title'),
+      description: t('about.features.i18n.description'),
       icon: '🌐',
     },
     {
-      name: '移动友好',
-      description: '完全响应式设计，支持各种设备访问',
+      name: t('about.features.mobile.title'),
+      description: t('about.features.mobile.description'),
       icon: '📱',
     },
     {
-      name: '安全可靠',
-      description: '本地文件处理，保护数据安全',
+      name: t('about.features.security.title'),
+      description: t('about.features.security.description'),
       icon: '🔒',
     },
     {
-      name: '实时进度',
-      description: '实时显示文件转换进度',
+      name: t('about.features.progress.title'),
+      description: t('about.features.progress.description'),
       icon: '📊',
     },
   ];
@@ -90,7 +91,7 @@ export default function AboutPage() {
           className="mt-16 text-center"
         >
           <h2 className="text-2xl font-bold tracking-tight text-gray-900">
-            技术栈
+            {t('about.tech.title')}
           </h2>
           <div className="mt-8 flex justify-center gap-8 text-gray-600">
             <span>Next.js</span>

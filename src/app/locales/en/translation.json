@@ -26,6 +26,35 @@
   },
   "about": {
     "title": "About",
-    "description": "About our CSV to Excel converter"
+    "description": "About our CSV to Excel converter",
+    "features": {
+      "batch": {
+        "title": "Batch Conversion",
+        "description": "Convert multiple CSV files to Excel format simultaneously"
+      },
+      "design": {
+        "title": "Beautiful Design",
+        "description": "Carefully crafted user interface for a smooth experience"
+      },
+      "i18n": {
+        "title": "Multilingual Support",
+        "description": "Switch between English and Chinese interfaces effortlessly"
+      },
+      "mobile": {
+        "title": "Mobile Friendly",
+        "description": "Fully responsive design, accessible on all devices"
+      },
+      "security": {
+        "title": "Secure & Reliable",
+        "description": "Local file processing to protect your data security"
+      },
+      "progress": {
+        "title": "Real-time Progress",
+        "description": "Monitor file conversion progress in real-time"
+      }
+    },
+    "tech": {
+      "title": "Tech Stack"
+    }
   }
 } 

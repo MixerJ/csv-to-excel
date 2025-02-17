@@ -26,6 +26,35 @@
   },
   "about": {
     "title": "关于",
-    "description": "关于我们的 CSV 转 Excel 工具"
+    "description": "关于我们的 CSV 转 Excel 工具",
+    "features": {
+      "batch": {
+        "title": "批量转换",
+        "description": "支持多个 CSV 文件同时转换为 Excel 格式"
+      },
+      "design": {
+        "title": "美观设计",
+        "description": "精心设计的用户界面，提供流畅的用户体验"
+      },
+      "i18n": {
+        "title": "多语言支持",
+        "description": "支持中文和英文界面，轻松切换语言"
+      },
+      "mobile": {
+        "title": "移动友好",
+        "description": "完全响应式设计，支持各种设备访问"
+      },
+      "security": {
+        "title": "安全可靠",
+        "description": "本地文件处理，保护数据安全"
+      },
+      "progress": {
+        "title": "实时进度",
+        "description": "实时显示文件转换进度"
+      }
+    },
+    "tech": {
+      "title": "技术栈"
+    }
   }
 } 

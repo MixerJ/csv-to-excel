@@ -39,14 +39,14 @@ export default function Navbar() {
   ];
 
   return (
-    <Disclosure as="nav" className="bg-white shadow">
+    <Disclosure as="nav" className="bg-white/80 backdrop-blur-sm border-b border-gray-100">
       {({ open }) => (
         <>
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="flex h-16 justify-between">
               <div className="flex">
                 <div className="flex flex-shrink-0 items-center">
-                  <Link href="/" className="text-xl font-bold text-indigo-600">
+                  <Link href="/" className="text-xl font-bold text-indigo-500 hover:text-indigo-600 transition-colors">
                     {t('common.title')}
                   </Link>
                 </div>
@@ -58,8 +58,8 @@ export default function Navbar() {
                       className={classNames(
                         pathname === item.href
                           ? 'border-indigo-500 text-gray-900'
-                          : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700',
-                        'inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium'
+                          : 'border-transparent text-gray-600 hover:border-gray-300 hover:text-gray-800',
+                        'inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium transition-colors'
                       )}
                     >
                       {item.name}
@@ -70,7 +70,7 @@ export default function Navbar() {
               
               <div className="hidden sm:ml-6 sm:flex sm:items-center">
                 <Menu as="div" className="relative ml-3">
-                  <Menu.Button className="flex rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none">
+                  <Menu.Button className="flex rounded-full bg-white/50 p-1 text-gray-500 hover:text-gray-600 hover:bg-gray-50 transition-colors focus:outline-none">
                     <GlobeAltIcon className="h-6 w-6" aria-hidden="true" />
                   </Menu.Button>
                   <Transition
@@ -89,8 +89,8 @@ export default function Navbar() {
                             <button
                               onClick={() => handleLanguageChange(lang.code)}
                               className={classNames(
-                                active ? 'bg-gray-100' : '',
-                                'block px-4 py-2 text-sm text-gray-700 w-full text-left',
+                                active ? 'bg-gray-50' : '',
+                                'block px-4 py-2 text-sm text-gray-700 w-full text-left hover:text-gray-900 transition-colors',
                                 i18n.language === lang.code ? 'font-bold' : ''
                               )}
                             >
@@ -105,7 +105,7 @@ export default function Navbar() {
               </div>
 
               <div className="-mr-2 flex items-center sm:hidden">
-                <Disclosure.Button className="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none">
+                <Disclosure.Button className="inline-flex items-center justify-center rounded-md p-2 text-gray-500 hover:bg-gray-50 hover:text-gray-600 focus:outline-none">
                   <span className="sr-only">Open main menu</span>
                   {open ? (
                     <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
@@ -126,9 +126,9 @@ export default function Navbar() {
                   href={item.href}
                   className={classNames(
                     pathname === item.href
-                      ? 'bg-indigo-50 border-indigo-500 text-indigo-700'
-                      : 'border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700',
-                    'block border-l-4 py-2 pl-3 pr-4 text-base font-medium'
+                      ? 'bg-indigo-50 border-indigo-500 text-indigo-600'
+                      : 'border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800',
+                    'block border-l-4 py-2 pl-3 pr-4 text-base font-medium transition-colors'
                   )}
                 >
                   {item.name}
@@ -143,10 +143,10 @@ export default function Navbar() {
                         key={lang.code}
                         onClick={() => handleLanguageChange(lang.code)}
                         className={classNames(
-                          'block rounded-md py-2 px-3 text-base font-medium w-full text-left',
+                          'block rounded-md py-2 px-3 text-base font-medium w-full text-left transition-colors',
                           i18n.language === lang.code
-                            ? 'bg-indigo-50 text-indigo-700'
-                            : 'text-gray-500 hover:bg-gray-50 hover:text-gray-700'
+                            ? 'bg-indigo-50 text-indigo-600'
+                            : 'text-gray-600 hover:bg-gray-50 hover:text-gray-800'
                         )}
                       >
                         {lang.name}
