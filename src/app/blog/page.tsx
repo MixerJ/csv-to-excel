@@ -3,16 +3,27 @@
 import { useTranslation } from 'react-i18next';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import '../lib/i18n';
 
 const blogPosts = [
   {
     slug: 'understanding-csv-excel',
-    title: 'Understanding CSV and Excel File Formats',
-    description: 'Learn about the differences between CSV and Excel files, their advantages, and when to use each format.',
+    translationKey: 'understanding_csv_excel',
     date: '2024-02-17',
     readTime: '5 min read',
   },
-  // Add more blog posts here
+  {
+    slug: 'batch-conversion-best-practices',
+    translationKey: 'batch_conversion',
+    date: '2024-02-18',
+    readTime: '6 min read',
+  },
+  {
+    slug: 'data-security-in-file-conversion',
+    translationKey: 'data_security',
+    date: '2024-02-19',
+    readTime: '7 min read',
+  }
 ];
 
 export default function BlogPage() {
@@ -53,14 +64,14 @@ export default function BlogPage() {
                   <span>{post.readTime}</span>
                 </div>
                 <h2 className="text-xl font-semibold text-gray-900 mb-2">
-                  {post.title}
+                  {t(`blog.posts.${post.translationKey}.title`)}
                 </h2>
                 <p className="text-gray-600">
-                  {post.description}
+                  {t(`blog.posts.${post.translationKey}.description`)}
                 </p>
                 <div className="mt-4">
                   <span className="text-indigo-600 hover:text-indigo-500">
-                    Read more →
+                    {t('blog.read_more')} →
                   </span>
                 </div>
               </div>
