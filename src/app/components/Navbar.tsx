@@ -1,11 +1,12 @@
 'use client';
 
-import { Fragment } from 'react';
+import { Fragment, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon, GlobeAltIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import '../lib/i18n';
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ');
@@ -14,6 +15,17 @@ function classNames(...classes: string[]) {
 export default function Navbar() {
   const { t, i18n } = useTranslation();
   const pathname = usePathname();
+
+  useEffect(() => {
+    // 从 localStorage 获取语言设置，如果没有则使用默认语言
+    const savedLang = localStorage.getItem('i18nextLng') || 'en';
+    i18n.changeLanguage(savedLang);
+  }, [i18n]);
+
+  const handleLanguageChange = (lang: string) => {
+    i18n.changeLanguage(lang);
+    localStorage.setItem('i18nextLng', lang);
+  };
 
   const navigation = [
     { name: t('common.nav.home'), href: '/' },
@@ -75,7 +87,7 @@ export default function Navbar() {
                         <Menu.Item key={lang.code}>
                           {({ active }) => (
                             <button
-                              onClick={() => i18n.changeLanguage(lang.code)}
+                              onClick={() => handleLanguageChange(lang.code)}
                               className={classNames(
                                 active ? 'bg-gray-100' : '',
                                 'block px-4 py-2 text-sm text-gray-700 w-full text-left',
@@ -129,7 +141,7 @@ export default function Navbar() {
                     {languages.map((lang) => (
                       <button
                         key={lang.code}
-                        onClick={() => i18n.changeLanguage(lang.code)}
+                        onClick={() => handleLanguageChange(lang.code)}
                         className={classNames(
                           'block rounded-md py-2 px-3 text-base font-medium w-full text-left',
                           i18n.language === lang.code
