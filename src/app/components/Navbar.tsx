@@ -12,31 +12,96 @@ function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ');
 }
 
+function getPathWithoutLocale(path: string) {
+  // Remove locale prefix if it exists
+  return path.replace(/^\/(en|zh)(?=\/|$)/, '') || '/';
+}
+
+function getLocaleFromPath(path: string) {
+  const match = path.match(/^\/(en|zh)(?=\/|$)/);
+  return match ? match[1] : 'en';
+}
+
+function isActivePath(currentPath: string, itemPath: string) {
+  // Handle exact matches
+  if (currentPath === itemPath) return true;
+  
+  // Handle blog post routes
+  if (itemPath === '/blog' && currentPath.startsWith('/blog/')) return true;
+  
+  return false;
+}
+
+function getLocalizedPath(path: string, targetLocale: string) {
+  // Get path without current locale
+  const pathWithoutLocale = getPathWithoutLocale(path);
+  
+  // Special case for root path
+  if (pathWithoutLocale === '/') {
+    return targetLocale === 'en' ? '/' : `/${targetLocale}`;
+  }
+  
+  // For all other paths
+  return targetLocale === 'en' ? pathWithoutLocale : `/${targetLocale}${pathWithoutLocale}`;
+}
+
 export default function Navbar() {
   const { t, i18n } = useTranslation();
   const pathname = usePathname();
+  const currentLocale = getLocaleFromPath(pathname);
+  const currentPath = getPathWithoutLocale(pathname);
 
   useEffect(() => {
-    // 从 localStorage 获取语言设置，如果没有则使用默认语言
-    const savedLang = localStorage.getItem('i18nextLng') || 'en';
-    i18n.changeLanguage(savedLang);
-  }, [i18n]);
+    // Sync i18n language with URL locale
+    if (i18n.language !== currentLocale) {
+      i18n.changeLanguage(currentLocale);
+      localStorage.setItem('i18nextLng', currentLocale);
+    }
+  }, [i18n, currentLocale]);
 
   const handleLanguageChange = (lang: string) => {
+    // Get new localized path
+    const newPath = getLocalizedPath(pathname, lang);
+    
+    // Update language settings
     i18n.changeLanguage(lang);
     localStorage.setItem('i18nextLng', lang);
+    
+    // Navigate to new path
+    window.location.href = newPath;
   };
 
   const navigation = [
     { name: t('common.nav.home'), href: '/' },
     { name: t('common.nav.blog'), href: '/blog' },
     { name: t('common.nav.about'), href: '/about' },
-  ];
+  ].map(item => ({
+    ...item,
+    href: getLocalizedPath(item.href, currentLocale)
+  }));
 
   const languages = [
-    { code: 'en', name: 'English' },
-    { code: 'zh', name: '中文' },
+    { code: 'en', name: 'English', flag: '🇺🇸' },
+    { code: 'zh', name: '中文', flag: '🇨🇳' },
   ];
+
+  const LanguageButton = ({ lang, isMobile = false }: { lang: typeof languages[0], isMobile?: boolean }) => (
+    <button
+      onClick={() => handleLanguageChange(lang.code)}
+      className={classNames(
+        isMobile
+          ? 'block rounded-md py-2 px-3 text-base font-medium w-full text-left transition-colors'
+          : 'block px-4 py-2 text-sm text-gray-700 w-full text-left hover:text-gray-900 transition-colors',
+        !isMobile && 'hover:bg-gray-50',
+        i18n.language === lang.code
+          ? isMobile ? 'bg-indigo-50 text-indigo-600' : 'font-bold'
+          : isMobile ? 'text-gray-600 hover:bg-gray-50 hover:text-gray-800' : ''
+      )}
+    >
+      <span className="inline-block w-6">{lang.flag}</span>
+      <span className="ml-2">{lang.name}</span>
+    </button>
+  );
 
   return (
     <Disclosure as="nav" className="bg-white/80 backdrop-blur-sm border-b border-gray-100">
@@ -46,7 +111,10 @@ export default function Navbar() {
             <div className="flex h-16 justify-between">
               <div className="flex">
                 <div className="flex flex-shrink-0 items-center">
-                  <Link href="/" className="text-xl font-bold text-indigo-500 hover:text-indigo-600 transition-colors">
+                  <Link 
+                    href={getLocalizedPath('/', currentLocale)} 
+                    className="text-xl font-bold text-indigo-500 hover:text-indigo-600 transition-colors"
+                  >
                     {t('common.title')}
                   </Link>
                 </div>
@@ -56,7 +124,7 @@ export default function Navbar() {
                       key={item.href}
                       href={item.href}
                       className={classNames(
-                        pathname === item.href
+                        isActivePath(currentPath, getPathWithoutLocale(item.href))
                           ? 'border-indigo-500 text-gray-900'
                           : 'border-transparent text-gray-600 hover:border-gray-300 hover:text-gray-800',
                         'inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium transition-colors'
@@ -86,16 +154,9 @@ export default function Navbar() {
                       {languages.map((lang) => (
                         <Menu.Item key={lang.code}>
                           {({ active }) => (
-                            <button
-                              onClick={() => handleLanguageChange(lang.code)}
-                              className={classNames(
-                                active ? 'bg-gray-50' : '',
-                                'block px-4 py-2 text-sm text-gray-700 w-full text-left hover:text-gray-900 transition-colors',
-                                i18n.language === lang.code ? 'font-bold' : ''
-                              )}
-                            >
-                              {lang.name}
-                            </button>
+                            <div className={active ? 'bg-gray-50' : ''}>
+                              <LanguageButton lang={lang} />
+                            </div>
                           )}
                         </Menu.Item>
                       ))}
@@ -125,7 +186,7 @@ export default function Navbar() {
                   as={Link}
                   href={item.href}
                   className={classNames(
-                    pathname === item.href
+                    isActivePath(currentPath, getPathWithoutLocale(item.href))
                       ? 'bg-indigo-50 border-indigo-500 text-indigo-600'
                       : 'border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800',
                     'block border-l-4 py-2 pl-3 pr-4 text-base font-medium transition-colors'
@@ -136,21 +197,10 @@ export default function Navbar() {
               ))}
               <div className="border-t border-gray-200 pt-4">
                 <div className="px-4">
-                  <p className="text-sm font-medium text-gray-500">Language</p>
+                  <p className="text-sm font-medium text-gray-500">{t('common.nav.language')}</p>
                   <div className="mt-2 space-y-2">
                     {languages.map((lang) => (
-                      <button
-                        key={lang.code}
-                        onClick={() => handleLanguageChange(lang.code)}
-                        className={classNames(
-                          'block rounded-md py-2 px-3 text-base font-medium w-full text-left transition-colors',
-                          i18n.language === lang.code
-                            ? 'bg-indigo-50 text-indigo-600'
-                            : 'text-gray-600 hover:bg-gray-50 hover:text-gray-800'
-                        )}
-                      >
-                        {lang.name}
-                      </button>
+                      <LanguageButton key={lang.code} lang={lang} isMobile />
                     ))}
                   </div>
                 </div>
