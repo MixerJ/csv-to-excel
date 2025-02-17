@@ -1,0 +1,31 @@
+{
+  "common": {
+    "title": "CSV to Excel Converter",
+    "description": "Convert your CSV files to Excel format with style",
+    "dropzone": {
+      "title": "Drop CSV files here",
+      "description": "or click to select files",
+      "accept": "Accepts .csv files only"
+    },
+    "conversion": {
+      "progress": "Converting...",
+      "success": "Conversion completed!",
+      "error": "Error during conversion",
+      "download": "Download Excel files",
+      "processing": "Processing {{count}} files"
+    },
+    "nav": {
+      "home": "Home",
+      "blog": "Blog",
+      "about": "About"
+    }
+  },
+  "blog": {
+    "title": "Blog",
+    "description": "Learn more about CSV and Excel file formats"
+  },
+  "about": {
+    "title": "About",
+    "description": "About our CSV to Excel converter"
+  }
+} 

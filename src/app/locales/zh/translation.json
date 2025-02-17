@@ -1,0 +1,31 @@
+{
+  "common": {
+    "title": "CSV 转 Excel 工具",
+    "description": "优雅地将 CSV 文件转换为 Excel 格式",
+    "dropzone": {
+      "title": "将 CSV 文件拖放到此处",
+      "description": "或点击选择文件",
+      "accept": "仅支持 .csv 文件"
+    },
+    "conversion": {
+      "progress": "正在转换...",
+      "success": "转换完成！",
+      "error": "转换过程中出错",
+      "download": "下载 Excel 文件",
+      "processing": "正在处理 {{count}} 个文件"
+    },
+    "nav": {
+      "home": "首页",
+      "blog": "博客",
+      "about": "关于"
+    }
+  },
+  "blog": {
+    "title": "博客",
+    "description": "了解更多关于 CSV 和 Excel 文件格式的信息"
+  },
+  "about": {
+    "title": "关于",
+    "description": "关于我们的 CSV 转 Excel 工具"
+  }
+} 
