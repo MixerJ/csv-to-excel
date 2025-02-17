@@ -12,16 +12,18 @@ export default function BlogLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen bg-white flex items-center justify-center">
-      <div className="w-[60%]">
-        <AnimatedArticle>
-          <div className="px-6 py-10 sm:px-8 lg:px-12 flex justify-center">
-            <div className="w-full max-w-2xl">
-              {children}
-            </div>
+    <main className="bg-white pt-32">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="mt-32">
+          <div className="w-[60%] mx-auto">
+            <AnimatedArticle>
+              <div className="px-6 py-10 sm:px-8 lg:px-12">
+                {children}
+              </div>
+            </AnimatedArticle>
           </div>
-        </AnimatedArticle>
+        </div>
       </div>
-    </div>
+    </main>
   );
 } 
