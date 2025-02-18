@@ -2,19 +2,19 @@ const fs = require('fs');
 const path = require('path');
 const dotenv = require('dotenv');
 
-// 加载环境变量
+// Load environment variables
 dotenv.config({ path: '.env.local' });
 
-// 获取域名，如果环境变量未设置则使用默认值
-const domain = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
-const currentDate = new Date().toISOString().slice(0, 10);
+// Get domain from environment variable or use production URL
+const domain = process.env.NEXT_PUBLIC_SITE_URL || 'https://csv-batch-to-excel.vercel.app';
+const currentDate = new Date().toISOString(); // Use ISO 8601 format
 
-// 处理URL路径
+// Handle URL paths
 function formatPath(path: string) {
   return path === '/' ? '' : path;
 }
 
-// 定义网站的路由
+// Define website routes
 const routes = [
   { path: '/', priority: 1.0, changefreq: 'weekly' },
   { path: '/blog', priority: 0.8, changefreq: 'weekly' },
@@ -25,7 +25,7 @@ const routes = [
   { path: '/docs', priority: 0.9, changefreq: 'weekly' },
   { path: '/faq', priority: 0.8, changefreq: 'weekly' },
   { path: '/support', priority: 0.8, changefreq: 'weekly' },
-  // 中文路由
+  // Chinese routes
   { path: '/zh', priority: 1.0, changefreq: 'weekly' },
   { path: '/zh/blog', priority: 0.8, changefreq: 'weekly' },
   { path: '/zh/blog/understanding-csv-excel', priority: 0.7, changefreq: 'monthly' },
@@ -37,7 +37,7 @@ const routes = [
   { path: '/zh/support', priority: 0.8, changefreq: 'weekly' },
 ];
 
-// 确保目录存在
+// Ensure directory exists
 function ensureDirectoryExists(filePath: string) {
   const dirname = path.dirname(filePath);
   if (fs.existsSync(dirname)) {
@@ -46,7 +46,7 @@ function ensureDirectoryExists(filePath: string) {
   fs.mkdirSync(dirname, { recursive: true });
 }
 
-// 生成 sitemap.xml
+// Generate sitemap.xml
 function generateSitemap() {
   const urlElements = routes.map(route => {
     const formattedPath = formatPath(route.path);
@@ -75,7 +75,7 @@ ${urlElements}
   console.log('✅ Generated sitemap.xml');
 }
 
-// 生成 robots.txt
+// Generate robots.txt
 function generateRobots() {
   const robots = `# Allow all crawlers
 User-agent: *
@@ -101,7 +101,7 @@ Host: ${domain}`;
   console.log('✅ Generated robots.txt');
 }
 
-// 执行生成
+// Execute generation
 try {
   if (!fs.existsSync(path.join(process.cwd(), 'public'))) {
     fs.mkdirSync(path.join(process.cwd(), 'public'), { recursive: true });
