@@ -93,12 +93,47 @@ export default function AboutPage() {
           <h2 className="text-2xl font-bold tracking-tight text-gray-900">
             {t('about.tech.title')}
           </h2>
-          <div className="mt-8 flex justify-center gap-8 text-gray-600">
-            <span>Next.js</span>
-            <span>TypeScript</span>
-            <span>Tailwind CSS</span>
-            <span>XLSX.js</span>
-            <span>i18next</span>
+          <div className="mt-8 flex flex-wrap justify-center gap-4 text-gray-600">
+            <a 
+              href="https://nextjs.org" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="px-4 py-2 bg-gray-50 hover:bg-gray-100 rounded-full transition-colors"
+            >
+              Next.js
+            </a>
+            <a 
+              href="https://www.typescriptlang.org" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="px-4 py-2 bg-gray-50 hover:bg-gray-100 rounded-full transition-colors"
+            >
+              TypeScript
+            </a>
+            <a 
+              href="https://tailwindcss.com" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="px-4 py-2 bg-gray-50 hover:bg-gray-100 rounded-full transition-colors"
+            >
+              Tailwind CSS
+            </a>
+            <a 
+              href="https://sheetjs.com" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="px-4 py-2 bg-gray-50 hover:bg-gray-100 rounded-full transition-colors"
+            >
+              XLSX.js
+            </a>
+            <a 
+              href="https://www.i18next.com" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="px-4 py-2 bg-gray-50 hover:bg-gray-100 rounded-full transition-colors"
+            >
+              i18next
+            </a>
           </div>
         </motion.div>
       </div>

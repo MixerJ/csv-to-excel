@@ -5,12 +5,12 @@
   
   <!-- CSV file icon (left) -->
   <rect x="4" y="8" width="10" height="16" rx="2" fill="white" fill-opacity="0.9"/>
-  <text x="6" y="19" font-family="Arial" font-size="6" font-weight="bold" fill="#4F46E5">CSV</text>
+  <text x="5" y="19" font-family="Arial" font-size="6" font-weight="bold" fill="#4F46E5">CSV</text>
   
   <!-- Arrow -->
   <path d="M16 16H24M24 16L20 12M24 16L20 20" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
   
   <!-- Excel icon (right) -->
   <rect x="18" y="8" width="10" height="16" rx="2" fill="#10B981" fill-opacity="0.9"/>
-  <text x="20" y="19" font-family="Arial" font-size="6" font-weight="bold" fill="white">XLS</text>
+  <text x="19" y="19" font-family="Arial" font-size="6" font-weight="bold" fill="white">XLS</text>
 </svg> 

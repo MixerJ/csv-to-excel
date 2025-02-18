@@ -3,6 +3,7 @@ import { initReactI18next } from 'react-i18next';
 import { TranslationSchema } from '../types/translations';
 import enTranslation from '../locales/en/translation.json';
 import zhTranslation from '../locales/zh/translation.json';
+import LanguageDetector from 'i18next-browser-languagedetector';
 
 declare module 'i18next' {
   interface CustomTypeOptions {
@@ -14,6 +15,7 @@ declare module 'i18next' {
 }
 
 i18n
+  .use(LanguageDetector)
   .use(initReactI18next)
   .init({
     resources: {
@@ -24,18 +26,19 @@ i18n
         translation: zhTranslation,
       },
     },
-    lng: 'en', // default language
     fallbackLng: 'en',
+    supportedLngs: ['en', 'zh'],
     interpolation: {
       escapeValue: false,
     },
     react: {
       useSuspense: false,
     },
-    load: 'currentOnly',
     detection: {
-      order: ['localStorage', 'navigator'],
+      order: ['path', 'localStorage', 'navigator'],
+      lookupFromPathIndex: 0,
       caches: ['localStorage'],
+      checkWhitelist: true,
     },
   });
 

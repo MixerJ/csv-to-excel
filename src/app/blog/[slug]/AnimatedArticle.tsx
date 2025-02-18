@@ -8,12 +8,11 @@ export default function AnimatedArticle({
   children: React.ReactNode;
 }) {
   return (
-    <motion.article
+    <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="bg-white border border-gray-100 rounded-xl shadow-sm overflow-hidden"
     >
       {children}
-    </motion.article>
+    </motion.div>
   );
 } 
