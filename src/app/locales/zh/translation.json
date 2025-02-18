@@ -369,5 +369,91 @@
     "tech": {
       "title": "技术栈"
     }
+  },
+  "docs": {
+    "title": "文档",
+    "description": "了解如何有效使用我们的CSV转Excel转换器",
+    "sections": {
+      "getting_started": {
+        "title": "快速开始",
+        "description": "转换器使用快速指南",
+        "items": [
+          "上传CSV文件",
+          "等待转换",
+          "下载Excel文件"
+        ]
+      },
+      "features": {
+        "title": "功能特性",
+        "description": "所有功能的详细说明",
+        "items": [
+          "批量转换支持",
+          "自定义样式选项",
+          "多语言支持"
+        ]
+      },
+      "advanced": {
+        "title": "高级用法",
+        "description": "高级功能和配置",
+        "items": [
+          "自定义Excel格式",
+          "大文件处理",
+          "错误处理"
+        ]
+      }
+    }
+  },
+  "faq": {
+    "title": "常见问题",
+    "description": "查找关于我们服务的常见问题解答",
+    "questions": [
+      {
+        "question": "支持哪些文件格式？",
+        "answer": "我们目前支持CSV文件作为输入，并生成XLSX（Excel）文件作为输出。"
+      },
+      {
+        "question": "是否有文件大小限制？",
+        "answer": "是的，为确保最佳性能，单个文件限制为10MB。"
+      },
+      {
+        "question": "我的文件如何处理？",
+        "answer": "所有文件都在您的浏览器中本地处理。不会将数据发送到任何服务器。"
+      },
+      {
+        "question": "我可以同时转换多个文件吗？",
+        "answer": "是的，我们的批量转换功能允许您同时转换多个CSV文件。"
+      },
+      {
+        "question": "这项服务是免费的吗？",
+        "answer": "是的，该服务完全免费且开源。"
+      }
+    ]
+  },
+  "support": {
+    "title": "支持",
+    "description": "获取CSV转Excel转换器的使用帮助",
+    "contact": {
+      "title": "联系我们",
+      "description": "需要帮助？请与我们联系",
+      "email": "support@example.com",
+      "github": "在GitHub上报告问题"
+    },
+    "resources": {
+      "title": "资源",
+      "items": [
+        {
+          "title": "用户指南",
+          "description": "转换器使用的综合指南"
+        },
+        {
+          "title": "API文档",
+          "description": "面向开发者的技术文档"
+        },
+        {
+          "title": "社区论坛",
+          "description": "与其他用户连接并分享经验"
+        }
+      ]
+    }
   }
 } 

@@ -22,6 +22,9 @@ const routes = [
   { path: '/blog/batch-conversion-best-practices', priority: 0.7, changefreq: 'monthly' },
   { path: '/blog/data-security-in-file-conversion', priority: 0.7, changefreq: 'monthly' },
   { path: '/about', priority: 0.5, changefreq: 'monthly' },
+  { path: '/docs', priority: 0.9, changefreq: 'weekly' },
+  { path: '/faq', priority: 0.8, changefreq: 'weekly' },
+  { path: '/support', priority: 0.8, changefreq: 'weekly' },
   // 中文路由
   { path: '/zh', priority: 1.0, changefreq: 'weekly' },
   { path: '/zh/blog', priority: 0.8, changefreq: 'weekly' },
@@ -29,6 +32,9 @@ const routes = [
   { path: '/zh/blog/batch-conversion-best-practices', priority: 0.7, changefreq: 'monthly' },
   { path: '/zh/blog/data-security-in-file-conversion', priority: 0.7, changefreq: 'monthly' },
   { path: '/zh/about', priority: 0.5, changefreq: 'monthly' },
+  { path: '/zh/docs', priority: 0.9, changefreq: 'weekly' },
+  { path: '/zh/faq', priority: 0.8, changefreq: 'weekly' },
+  { path: '/zh/support', priority: 0.8, changefreq: 'weekly' },
 ];
 
 // 确保目录存在

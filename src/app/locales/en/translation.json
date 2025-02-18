@@ -369,5 +369,91 @@
     "tech": {
       "title": "Tech Stack"
     }
+  },
+  "docs": {
+    "title": "Documentation",
+    "description": "Learn how to use our CSV to Excel converter effectively",
+    "sections": {
+      "getting_started": {
+        "title": "Getting Started",
+        "description": "Quick start guide for using the converter",
+        "items": [
+          "Upload your CSV files",
+          "Wait for conversion",
+          "Download Excel files"
+        ]
+      },
+      "features": {
+        "title": "Features",
+        "description": "Detailed explanation of all features",
+        "items": [
+          "Batch conversion support",
+          "Custom styling options",
+          "Multiple language support"
+        ]
+      },
+      "advanced": {
+        "title": "Advanced Usage",
+        "description": "Advanced features and configurations",
+        "items": [
+          "Custom Excel formatting",
+          "Large file handling",
+          "Error handling"
+        ]
+      }
+    }
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "description": "Find answers to common questions about our service",
+    "questions": [
+      {
+        "question": "What file formats are supported?",
+        "answer": "We currently support CSV files as input and generate XLSX (Excel) files as output."
+      },
+      {
+        "question": "Is there a file size limit?",
+        "answer": "Yes, individual files are limited to 10MB to ensure optimal performance."
+      },
+      {
+        "question": "How are my files processed?",
+        "answer": "All files are processed locally in your browser. No data is sent to any server."
+      },
+      {
+        "question": "Can I convert multiple files at once?",
+        "answer": "Yes, our batch conversion feature allows you to convert multiple CSV files simultaneously."
+      },
+      {
+        "question": "Is the service free to use?",
+        "answer": "Yes, the service is completely free and open source."
+      }
+    ]
+  },
+  "support": {
+    "title": "Support",
+    "description": "Get help with using our CSV to Excel converter",
+    "contact": {
+      "title": "Contact Us",
+      "description": "Need help? Get in touch with us",
+      "email": "support@example.com",
+      "github": "Report issues on GitHub"
+    },
+    "resources": {
+      "title": "Resources",
+      "items": [
+        {
+          "title": "User Guide",
+          "description": "Comprehensive guide to using the converter"
+        },
+        {
+          "title": "API Documentation",
+          "description": "Technical documentation for developers"
+        },
+        {
+          "title": "Community Forum",
+          "description": "Connect with other users and share experiences"
+        }
+      ]
+    }
   }
 } 
