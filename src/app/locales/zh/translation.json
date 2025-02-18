@@ -17,7 +17,25 @@
     "nav": {
       "home": "首页",
       "blog": "博客",
-      "about": "关于"
+      "about": "关于",
+      "language": "语言"
+    }
+  },
+  "footer": {
+    "title": "页脚",
+    "copyright": "保留所有权利。",
+    "resources": {
+      "tools": "CSV 和 Excel 工具",
+      "converters": "文件转换工具",
+      "data": "数据处理"
+    },
+    "quick_links": {
+      "main": "主导航",
+      "blog": "博客文章",
+      "help": "帮助与支持",
+      "documentation": "文档",
+      "faq": "常见问题",
+      "support": "技术支持"
     }
   },
   "blog": {

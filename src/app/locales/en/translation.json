@@ -17,7 +17,25 @@
     "nav": {
       "home": "Home",
       "blog": "Blog",
-      "about": "About"
+      "about": "About",
+      "language": "Language"
+    }
+  },
+  "footer": {
+    "title": "Footer",
+    "copyright": "All rights reserved.",
+    "resources": {
+      "tools": "CSV & Excel Tools",
+      "converters": "File Converters",
+      "data": "Data Processing"
+    },
+    "quick_links": {
+      "main": "Main Navigation",
+      "blog": "Blog Posts",
+      "help": "Help & Support",
+      "documentation": "Documentation",
+      "faq": "FAQ",
+      "support": "Support"
     }
   },
   "blog": {
