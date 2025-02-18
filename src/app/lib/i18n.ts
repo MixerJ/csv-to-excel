@@ -37,9 +37,8 @@ i18n
     detection: {
       order: ['path', 'localStorage', 'navigator'],
       lookupFromPathIndex: 0,
-      caches: ['localStorage'],
-      checkWhitelist: true,
-    },
-  });
+      caches: ['localStorage']
+    }
+  } as const);
 
 export default i18n; 

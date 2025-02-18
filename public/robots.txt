@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Sitemap location
-Sitemap: https://csv-batch-to-excel.vercel.app/sitemap.xml
+Sitemap: http://localhost:3000/sitemap.xml
 
 # Crawl-delay
 Crawl-delay: 10
@@ -14,4 +14,4 @@ Disallow: /_next/
 Disallow: /static/
 
 # Host
-Host: https://csv-batch-to-excel.vercel.app
+Host: http://localhost:3000
