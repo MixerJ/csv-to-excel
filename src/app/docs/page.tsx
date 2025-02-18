@@ -1,3 +1,5 @@
+'use client';
+
 import { useTranslation } from 'react-i18next';
 import { useEffect } from 'react';
 import '../lib/i18n';
@@ -12,8 +14,12 @@ export default function DocsPage() {
     }
   }, [i18n]);
 
+  const gettingStartedItems = t('docs.sections.getting_started.items', { returnObjects: true }) as string[];
+  const featureItems = t('docs.sections.features.items', { returnObjects: true }) as string[];
+  const advancedItems = t('docs.sections.advanced.items', { returnObjects: true }) as string[];
+
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
       <h1 className="text-4xl font-bold mb-6">{t('docs.title')}</h1>
       <p className="text-lg text-gray-600 mb-8">{t('docs.description')}</p>
 
@@ -23,7 +29,7 @@ export default function DocsPage() {
           <h2 className="text-2xl font-semibold mb-4">{t('docs.sections.getting_started.title')}</h2>
           <p className="text-gray-600 mb-4">{t('docs.sections.getting_started.description')}</p>
           <ul className="list-disc list-inside space-y-2">
-            {t('docs.sections.getting_started.items', { returnObjects: true }).map((item: string, index: number) => (
+            {gettingStartedItems.map((item, index) => (
               <li key={index} className="text-gray-700">{item}</li>
             ))}
           </ul>
@@ -34,7 +40,7 @@ export default function DocsPage() {
           <h2 className="text-2xl font-semibold mb-4">{t('docs.sections.features.title')}</h2>
           <p className="text-gray-600 mb-4">{t('docs.sections.features.description')}</p>
           <ul className="list-disc list-inside space-y-2">
-            {t('docs.sections.features.items', { returnObjects: true }).map((item: string, index: number) => (
+            {featureItems.map((item, index) => (
               <li key={index} className="text-gray-700">{item}</li>
             ))}
           </ul>
@@ -45,7 +51,7 @@ export default function DocsPage() {
           <h2 className="text-2xl font-semibold mb-4">{t('docs.sections.advanced.title')}</h2>
           <p className="text-gray-600 mb-4">{t('docs.sections.advanced.description')}</p>
           <ul className="list-disc list-inside space-y-2">
-            {t('docs.sections.advanced.items', { returnObjects: true }).map((item: string, index: number) => (
+            {advancedItems.map((item, index) => (
               <li key={index} className="text-gray-700">{item}</li>
             ))}
           </ul>

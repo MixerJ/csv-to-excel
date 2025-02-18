@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { getLocalizedPath } from '../utils/localization';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 const socialLinks = [
   {
@@ -39,11 +39,17 @@ const socialLinks = [
 export default function Footer() {
   const { t, i18n } = useTranslation();
   const pathname = usePathname();
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    // Force re-render when language changes
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
     const handleLanguageChange = () => {
-      // The component will re-render when i18n.language changes
+      // Force re-render when language changes
+      setMounted(false);
+      setTimeout(() => setMounted(true), 0);
     };
 
     i18n.on('languageChanged', handleLanguageChange);
@@ -51,6 +57,17 @@ export default function Footer() {
       i18n.off('languageChanged', handleLanguageChange);
     };
   }, [i18n]);
+
+  // Instead of returning null, return an empty footer with the same structure
+  if (!mounted) {
+    return (
+      <footer className="bg-white border-t border-gray-200" aria-labelledby="footer-heading">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="py-8 sm:py-12" />
+        </div>
+      </footer>
+    );
+  }
 
   const resourceLinks = [
     {

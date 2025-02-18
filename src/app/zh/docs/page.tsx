@@ -8,8 +8,17 @@ export default function ZhDocsPage() {
   const { i18n } = useTranslation();
 
   useEffect(() => {
-    i18n.changeLanguage('zh');
-    localStorage.setItem('i18nextLng', 'zh');
+    const changeLanguage = async () => {
+      await i18n.changeLanguage('zh');
+      localStorage.setItem('i18nextLng', 'zh');
+      document.documentElement.lang = 'zh';
+    };
+    changeLanguage();
+
+    // Cleanup function
+    return () => {
+      document.documentElement.lang = 'en';
+    };
   }, [i18n]);
 
   return (
@@ -26,7 +35,7 @@ function DocsContent() {
   const advancedItems = t('docs.sections.advanced.items', { returnObjects: true }) as string[];
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
       <h1 className="text-4xl font-bold mb-6">{t('docs.title')}</h1>
       <p className="text-lg text-gray-600 mb-8">{t('docs.description')}</p>
 
