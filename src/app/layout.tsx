@@ -9,7 +9,9 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "CSV to Excel Converter",
   description: "Convert your CSV files to Excel format with style",
-  keywords: ["CSV", "Excel", "converter", "batch", "file conversion"],
+  keywords: ["CSV", "Excel", "converter", 
+    "batch", "file conversion", "Converter",
+  "Batch Conversion", "Free", "csv to excel", "convert csv to excel"],
   authors: [{ name: "Sueeiii" }],
   openGraph: {
     title: "CSV to Excel Converter",

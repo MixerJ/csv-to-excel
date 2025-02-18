@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { getLocalizedPath } from '../utils/localization';
+import { useEffect } from 'react';
 
 const socialLinks = [
   {
@@ -36,8 +37,20 @@ const socialLinks = [
 ];
 
 export default function Footer() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const pathname = usePathname();
+
+  useEffect(() => {
+    // Force re-render when language changes
+    const handleLanguageChange = () => {
+      // The component will re-render when i18n.language changes
+    };
+
+    i18n.on('languageChanged', handleLanguageChange);
+    return () => {
+      i18n.off('languageChanged', handleLanguageChange);
+    };
+  }, [i18n]);
 
   const resourceLinks = [
     {
@@ -126,10 +139,10 @@ export default function Footer() {
         {t('footer.title')}
       </h2>
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="py-12 sm:py-16 lg:py-20">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8">
+        <div className="py-8 sm:py-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-6">
             {/* Brand column */}
-            <div className="space-y-8 col-span-1 md:col-span-2 lg:col-span-4">
+            <div className="space-y-6 col-span-1 md:col-span-2 lg:col-span-4">
               <Link
                 href={getLocalizedPath('/', pathname)}
                 className="inline-flex text-xl font-bold text-indigo-600 hover:text-indigo-700 transition-colors"
@@ -156,13 +169,13 @@ export default function Footer() {
             </div>
 
             {/* Resource links */}
-            <div className="grid grid-cols-2 gap-8 col-span-1 md:col-span-2 lg:col-span-6">
+            <div className="grid grid-cols-2 gap-6 col-span-1 md:col-span-2 lg:col-span-6">
               {resourceLinks.map((group) => (
                 <div key={group.title} className="group">
                   <h3 className="text-sm font-semibold text-gray-900 tracking-wider uppercase">
                     {group.title}
                   </h3>
-                  <ul role="list" className="mt-4 space-y-3">
+                  <ul role="list" className="mt-3 space-y-2">
                     {group.links.map((link) => (
                       <li key={link.name} className="transform transition-transform duration-200 hover:-translate-y-0.5">
                         {link.isExternal ? (
@@ -178,13 +191,13 @@ export default function Footer() {
             </div>
 
             {/* Quick links */}
-            <div className="space-y-8 col-span-1 md:col-span-2 lg:col-span-2">
+            <div className="space-y-6 col-span-1 md:col-span-2 lg:col-span-2">
               {quickLinks.map((group) => (
                 <div key={group.title} className="group">
                   <h3 className="text-sm font-semibold text-gray-900 tracking-wider uppercase">
                     {group.title}
                   </h3>
-                  <ul role="list" className="mt-4 space-y-3">
+                  <ul role="list" className="mt-3 space-y-2">
                     {group.links.map((link) => (
                       <li key={link.name} className="transform transition-transform duration-200 hover:-translate-y-0.5">
                         <InternalLink href={link.href}>{link.name}</InternalLink>
@@ -198,7 +211,7 @@ export default function Footer() {
         </div>
 
         {/* Copyright */}
-        <div className="border-t border-gray-200 py-8">
+        <div className="border-t border-gray-200 py-6">
           <p className="text-sm text-gray-500 text-center">
             &copy; {new Date().getFullYear()} {t('footer.copyright')}
           </p>
