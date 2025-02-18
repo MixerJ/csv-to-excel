@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import '../lib/i18n';
+import React from 'react';
 
 const blogPosts = [
   {
@@ -29,6 +30,12 @@ const blogPosts = [
 export default function BlogPage() {
   const { t } = useTranslation();
 
+  // Helper function to handle single string translations
+  const getText = React.useCallback((key: string) => {
+    // @ts-expect-error - i18next types are not perfect
+    return t(key) as string;
+  }, [t]);
+
   return (
     <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <motion.div
@@ -38,10 +45,10 @@ export default function BlogPage() {
         className="text-center mb-12"
       >
         <h1 className="text-4xl font-bold tracking-tight text-gray-900">
-          {t('blog.title')}
+          {getText('blog.title')}
         </h1>
         <p className="mt-4 text-xl text-gray-600">
-          {t('blog.description')}
+          {getText('blog.description')}
         </p>
       </motion.div>
 
@@ -64,14 +71,14 @@ export default function BlogPage() {
                   <span>{post.readTime}</span>
                 </div>
                 <h2 className="text-xl font-semibold text-gray-900 mb-2">
-                  {t(`blog.posts.${post.translationKey}.title`)}
+                  {getText(`blog.posts.${post.translationKey}.title`)}
                 </h2>
                 <p className="text-gray-600">
-                  {t(`blog.posts.${post.translationKey}.description`)}
+                  {getText(`blog.posts.${post.translationKey}.description`)}
                 </p>
                 <div className="mt-4">
                   <span className="text-indigo-600 hover:text-indigo-500">
-                    {t('blog.read_more')} →
+                    {getText('blog.read_more')} →
                   </span>
                 </div>
               </div>

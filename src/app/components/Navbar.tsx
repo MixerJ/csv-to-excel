@@ -92,7 +92,7 @@ export default function Navbar() {
         isMobile
           ? 'block rounded-md py-2 px-3 text-base font-medium w-full text-left transition-colors'
           : 'block px-4 py-2 text-sm text-gray-700 w-full text-left hover:text-gray-900 transition-colors',
-        !isMobile && 'hover:bg-gray-50',
+        isMobile ? '' : 'hover:bg-gray-50',
         i18n.language === lang.code
           ? isMobile ? 'bg-indigo-50 text-indigo-600' : 'font-bold'
           : isMobile ? 'text-gray-600 hover:bg-gray-50 hover:text-gray-800' : ''
