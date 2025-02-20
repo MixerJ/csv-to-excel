@@ -90,12 +90,14 @@ export default function Navbar() {
       onClick={() => handleLanguageChange(lang.code)}
       className={classNames(
         isMobile
-          ? 'block rounded-md py-2 px-3 text-base font-medium w-full text-left transition-colors'
+          ? 'block w-full text-left px-4 py-2 text-base font-medium rounded-md transition-colors'
           : 'block px-4 py-2 text-sm text-gray-700 w-full text-left hover:text-gray-900 transition-colors',
-        isMobile ? '' : 'hover:bg-gray-50',
-        i18n.language === lang.code
-          ? isMobile ? 'bg-indigo-50 text-indigo-600' : 'font-bold'
-          : isMobile ? 'text-gray-600 hover:bg-gray-50 hover:text-gray-800' : ''
+        isMobile 
+          ? i18n.language === lang.code 
+            ? 'bg-indigo-50 text-indigo-600' 
+            : 'text-gray-600 hover:bg-gray-50 hover:text-gray-800'
+          : 'hover:bg-gray-50',
+        i18n.language === lang.code && !isMobile ? 'font-bold' : ''
       )}
     >
       <span className="inline-block w-6">{lang.flag}</span>
@@ -195,12 +197,14 @@ export default function Navbar() {
                   {item.name}
                 </Disclosure.Button>
               ))}
-              <div className="border-t border-gray-200 pt-4">
-                <div className="px-4">
-                  <p className="text-sm font-medium text-gray-500">{t('common.nav.language')}</p>
-                  <div className="mt-2 space-y-2">
+              <div className="border-t border-gray-200 mt-4 pt-4">
+                <div className="px-2">
+                  <p className="px-3 text-sm font-medium text-gray-500">{t('common.nav.language')}</p>
+                  <div className="mt-2 space-y-1">
                     {languages.map((lang) => (
-                      <LanguageButton key={lang.code} lang={lang} isMobile />
+                      <div key={lang.code} className="px-1">
+                        <LanguageButton lang={lang} isMobile={true} />
+                      </div>
                     ))}
                   </div>
                 </div>
